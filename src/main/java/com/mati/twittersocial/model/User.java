@@ -23,13 +23,14 @@ public class User {
 
     private List<Integer> followings = new ArrayList<>();
 
-    private List<Post> posts = new ArrayList<>();
+    @ManyToMany
+    private List<Post> savedPost = new ArrayList<>();
 
     public User() {
 
     }
 
-    public User(Integer id, String firstName, String lastName, String email, String password, String gender, List<Integer> followers, List<Integer> followings, List<Post> posts) {
+    public User(Integer id, String firstName, String lastName, String email, String password, String gender, List<Integer> followers, List<Integer> followings, List<Post> savedPost) {
         this.id = id;
         this.firstName = firstName;
         this.lastName = lastName;
@@ -38,15 +39,15 @@ public class User {
         this.gender = gender;
         this.followers = followers;
         this.followings = followings;
-        this.posts = posts;
+        this.savedPost = savedPost;
     }
 
-    public List<Post> getPosts() {
-        return posts;
+    public List<Post> getSavedPost() {
+        return savedPost;
     }
 
-    public void setPosts(List<Post> posts) {
-        this.posts = posts;
+    public void setSavedPost(List<Post> savedPost) {
+        this.savedPost = savedPost;
     }
 
     public String getGender() {

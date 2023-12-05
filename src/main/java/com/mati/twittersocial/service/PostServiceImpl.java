@@ -5,11 +5,13 @@ import com.mati.twittersocial.model.User;
 import com.mati.twittersocial.repository.PostRepository;
 import com.mati.twittersocial.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Optional;
 
+@Service
 public class PostServiceImpl implements PostService {
 
     @Autowired
@@ -34,7 +36,7 @@ public class PostServiceImpl implements PostService {
         newPost.setUser(user);
 
 
-        return newPost;
+        return postRepository.save(newPost);
     }
 
     @Override
@@ -74,10 +76,10 @@ public class PostServiceImpl implements PostService {
         Post post = findPostById(postId);
         User user = userService.findUserById(userId);
 
-        if (user.getPosts().contains(post)){
-            user.getPosts().remove(post);
+        if (user.getSavedPost().contains(post)){
+            user.getSavedPost().remove(post);
         }
-        else user.getPosts().add(post);
+        else user.getSavedPost().add(post);
         userRepository.save(user);
         return post;
     }
