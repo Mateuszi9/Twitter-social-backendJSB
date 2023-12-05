@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
+@RequestMapping("/api")
 public class PostController {
 
     @Autowired
@@ -22,7 +23,7 @@ public class PostController {
     @Autowired
     UserService userService;
 
-    @PostMapping("/api/posts")
+    @PostMapping("/posts")
     public ResponseEntity<Post> createPost(@RequestBody Post post, @RequestHeader("Authorization") String jwt) throws Exception {
         User reqUser = userService.findUserByJwt(jwt);
         Post createdPost = postService.createNewPost(post,reqUser.getId());
