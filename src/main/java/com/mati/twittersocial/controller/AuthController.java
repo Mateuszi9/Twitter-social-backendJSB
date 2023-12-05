@@ -28,7 +28,6 @@ public class AuthController {
     private CustomUserDetailsService customUserDetailsService;
 
     @PostMapping("/signup")
-
     public AuthResponse createUser(@RequestBody User user) throws Exception {
 
         User isExist = userRepository.findByEmail(user.getEmail());
@@ -43,9 +42,9 @@ public class AuthController {
         newUser.setLastName(user.getLastName());
         newUser.setPassword(passwordEncoder.encode(user.getPassword()));
 
-        userRepository.save(newUser);
+        User savedUser = userRepository.save(newUser);
 
-        Authentication authentication = new UsernamePasswordAuthenticationToken(newUser.getEmail(), newUser.getPassword());
+        Authentication authentication = new UsernamePasswordAuthenticationToken(savedUser.getEmail(), savedUser.getPassword());
 
         String token = JwtProvider.generateToken(authentication);
 
