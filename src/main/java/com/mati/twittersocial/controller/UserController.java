@@ -38,11 +38,6 @@ public class UserController {
         return userService.updateUser(user, id);
     }
 
-    @PostMapping("/users")
-    public User createUser(@RequestBody User user){
-        User newUser = userService.registerUser(user);
-        return newUser;
-    }
 
     @PutMapping("/users/follow/{userId1}/{userId2}")
     public User followUserHandler(@PathVariable Integer userId1, @PathVariable Integer userId2) throws Exception {
