@@ -1,6 +1,7 @@
 package com.mati.twittersocial.service;
 
 import com.mati.twittersocial.config.JwtProvider;
+import com.mati.twittersocial.exceptions.UserException;
 import com.mati.twittersocial.model.User;
 import com.mati.twittersocial.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -30,14 +31,14 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public User findUserById(Integer userId) throws Exception {
+    public User findUserById(Integer userId) throws UserException {
         Optional<User> user = userRepository.findById(userId);
 
         if (user.isPresent()){
             return user.get();
         }
 
-        throw new Exception("user not exist with userId " + userId);
+        throw new UserException("user not exist with userId " + userId);
     }
 
     @Override
@@ -48,7 +49,7 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public User followUser(Integer reqUserId, Integer userId2) throws Exception {
+    public User followUser(Integer reqUserId, Integer userId2) throws UserException {
         User reqUser = findUserById(reqUserId);
         User user2 = findUserById(userId2);
 
@@ -62,10 +63,10 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public User updateUser(User user, Integer id) throws Exception {
+    public User updateUser(User user, Integer id) throws UserException {
         Optional<User> user1 = userRepository.findById(id);
         if (user1.isEmpty()){
-            throw new Exception("user not exist with id " + id);
+            throw new UserException("user not exist with id " + id);
         }
 
         User oldUser = user1.get();
